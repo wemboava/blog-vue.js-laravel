@@ -14,7 +14,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div id="app" style="display:none">
         <header-main title="{{ config('app.name', 'Laravel') }}" url="{{ url('/') }}">
             <!-- Authentication Links -->
             @guest
