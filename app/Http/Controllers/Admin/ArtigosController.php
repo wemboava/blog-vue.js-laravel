@@ -17,10 +17,16 @@ class ArtigosController extends Controller
         // json_encode transforma o atributo em Json, para enviar para a view
         $breadCrumpList =  json_encode([
             ['title'=>'Home', 'url'=>route('home')],
-            ['title'=>'Shopping list', 'url'=>'']
+            ['title'=>'list of articles', 'url'=>'']
         ]);
+
+        $articlesList =  json_encode([
+            ['id'=>1, 'title'=>'PHP 5', 'description'=>'Curso legal de PHP 5'],
+            ['id'=>2, 'title'=>'Vue.js', 'description'=>'Curso completo de vue.js']
+        ]);
+
         //compact é uma funçao do laravel que disponibiliza o valor da variavel para a view
-        return view('admin.artigos.index', compact('breadCrumpList'));
+        return view('admin.artigos.index', compact('breadCrumpList', 'articlesList'));
     }
 
     /**

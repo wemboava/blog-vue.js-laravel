@@ -11,9 +11,6 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        },
         props: ['title', 'color'],
         computed: {
             selectedColor () {

@@ -1,7 +1,7 @@
 <template>
     <div>
-        <a v-if="create" :href="create">Create</a>
-
+        <a v-if="create && !modal" :href="create">Create</a>
+        <modal-link v-if="create && modal" type="button" name-modal="modalAdd" title="Criar" css=""></modal-link>
         <div class="form-inline">
             <a href=""></a>
             <div class="form-group pull-right">
@@ -25,21 +25,27 @@
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="_token" :value="token">
                         
-                        <a v-if="details" :href="details">Details |</a>
-                        <a v-if="edit" :href="edit">Edit |</a>
+                        <a v-if="details && !modal" :href="details">Details |</a>
+                        <modal-link v-if="details && modal" type="link" :item="item" name-modal="modalDetails" title="Details" css=""></modal-link>
+                        <a v-if="edit && !modal" :href="edit">Edit |</a>
+                        <modal-link v-if="edit && modal" type="link" :item="item" name-modal="modalEdit" title="edit" css=""></modal-link>
                         <a v-if="deletes" :href="deletes">Delete</a>
                         <a href="" @click="initForm(index)"></a>
                     </form>
 
                     <span v-if="!token">
-                        <a v-if="details" :href="details">Details |</a>
-                        <a v-if="edit" :href="edit"> Edit</a>
+                        <a v-if="details && !modal" :href="details">Details |</a>
+                        <modal-link v-if="details && modal" type="link" :item="item" name-modal="modalDetails" title="Details" css=""></modal-link>
+                        <a v-if="edit && !modal" :href="edit">Edit |</a>
+                        <modal-link v-if="edit && modal" type="link" :item="item" name-modal="modalEdit" title="edit" css=""></modal-link>
                         <a v-if="deletes" :href="deletes">Delete</a>
                     </span>
 
                     <span v-if="token && !deletes">
-                        <a v-if="details" :href="details">Details |</a>
-                        <a v-if="edit" :href="edit"> Edit</a>
+                        <a v-if="details && !modal" :href="details">Details |</a>
+                        <modal-link v-if="details && modal" type="link" :item="item" name-modal="modalDetails" title="Details" css=""></modal-link>
+                        <a v-if="edit && !modal" :href="edit">Edit |</a>
+                        <modal-link v-if="edit && modal" type="link" :item="item" name-modal="modalEdit" title="edit" css=""></modal-link>
                     </span>
                 </tr>
                 
@@ -51,7 +57,7 @@
 
 <script>
     export default {
-        props: ['titles', 'items', 'create', 'details', 'edit', 'deletes', 'token'],
+        props: ['titles', 'items', 'create', 'details', 'edit', 'deletes', 'token', 'modal'],
         
         data () {
             return {
@@ -60,37 +66,40 @@
                 ordemCol: 0
             }
         },
+        mounted () {
+            
+        },
         computed: {
             list () {
-
+                
                 this.ordem = this.ordem.toLowerCase()
                 this.ordemCol = parseInt(this.ordemCol)
 
                 if (this.ordem === "asc") {
-                    this.items.sort((a, b) => {
-                        if (a[this.ordemCol] < b[this.ordemCol]) { return 1}
-                        if (a[this.ordemCol] > b[this.ordemCol]) { return -1}
+                    this.items.sort((a, b) => {      
+                        if (Object.values(a)[this.ordemCol] < Object.values(b)[this.ordemCol]) { return 1}
+                        if (Object.values(a)[this.ordemCol] > Object.values(b)[this.ordemCol]) { return -1}
                         return 0
                     }) 
                 } else {
                     this.items.sort((a, b) => {
-                        if (a[this.ordemCol] > b[this.ordemCol]) { return 1}
-                        if (a[this.ordemCol] < b[this.ordemCol]) { return -1}
+                        console.log('a =>', a);
+                        console.log('a Obj =>', Object.values(a));
+                        if (Object.values(a)[this.ordemCol] > Object.values(b)[this.ordemCol]) { return 1}
+                        if (Object.values(a)[this.ordemCol] < Object.values(b)[this.ordemCol]) { return -1}
                         return 0
                     })
                 }
 
-
                 return this.items.filter(res => {
-                    for(let i = 0; i < res.length; i++) {
-                        if ((res[i] + "").toLowerCase().indexOf(this.filter.toLowerCase()) >= 0) {
-                            return true
-                        }
+
+                    if (res['title'].toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
+                        || res['description'].toLowerCase().indexOf(this.filter.toLowerCase()) >= 0) {
+                        return true
                     }
                     return false
                 })  
 
-                
             }
         },
         methods: {

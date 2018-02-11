@@ -2,7 +2,6 @@
     <div class="small-box" :style="defineColor">
         <div class="inner">
             <h3>{{amount}}</h3>
-
             <p>{{title}}</p>
         </div>
     
