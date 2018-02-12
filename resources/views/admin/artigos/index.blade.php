@@ -3,6 +3,17 @@
 @section('content')
     <page size="10">
         
+        @if($errors->all())
+            <div class="alert alert-danger alert-dismissible text-center" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="false">&times;</span>
+                </button>
+                @foreach ($errors->all() as $key => $values)
+                <li><strong>{{$values}}</strong></li>
+                @endforeach
+            </div>
+        @endif
+
         <panel title="Lista de Artigos">
             <bread-crumb :list="{{$breadCrumpList}}"></bread-crumb>
             <list-table 
@@ -28,19 +39,19 @@
             >
                 <div class="form-group">
                     <label for="title">Title:</label>
-                    <input type="text" class="form-control" name="title" id="title" placeholder="title">
+                    <input type="text" class="form-control" name="title" id="title" placeholder="title" value="{{old('title')}}">
                 </div>
                 <div class="form-group">
                     <label for="description">Description:</label>
-                    <input type="text" class="form-control" name="description" id="description" placeholder="description">
+                    <input type="text" class="form-control" name="description" id="description" placeholder="description" value="{{old('description')}}">
                 </div>
                 <div class="form-group">
                     <label for="content">Content:</label>
-                    <textarea name="content" class="form-control" name="content" id="content"></textarea>
+                    <textarea name="content" class="form-control" name="content" id="content">{{old('content')}}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="date">Date:</label>
-                    <input type="datetime-local" class="form-control" name="date" id="date">
+                    <input type="datetime-local" class="form-control" name="date" id="date" value="{{old('date')}}">
                 </div>
             </form-template>
             <span slot="actions">
