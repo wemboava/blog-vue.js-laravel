@@ -44193,11 +44193,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         list: function list() {
             var _this = this;
 
+            var lista = this.items.data;
+
             this.ordem = this.ordem.toLowerCase();
             this.ordemCol = parseInt(this.ordemCol);
 
             if (this.ordem === "asc") {
-                this.items.sort(function (a, b) {
+                lista.sort(function (a, b) {
                     if (Object.values(a)[_this.ordemCol] < Object.values(b)[_this.ordemCol]) {
                         return 1;
                     }
@@ -44207,7 +44209,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     return 0;
                 });
             } else {
-                this.items.sort(function (a, b) {
+                lista.sort(function (a, b) {
                     console.log('a =>', a);
                     console.log('a Obj =>', Object.values(a));
                     if (Object.values(a)[_this.ordemCol] > Object.values(b)[_this.ordemCol]) {
@@ -44220,7 +44222,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }
 
-            return this.items.filter(function (res) {
+            return lista.filter(function (res) {
 
                 if (res['title'].toLowerCase().indexOf(_this.filter.toLowerCase()) >= 0 || res['description'].toLowerCase().indexOf(_this.filter.toLowerCase()) >= 0) {
                     return true;

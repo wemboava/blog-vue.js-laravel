@@ -18,7 +18,7 @@
             <bread-crumb :list="{{$breadCrumpList}}"></bread-crumb>
             <list-table 
                 :titles="['ID', 'Title', 'Description', 'Date']"
-                :items="{{$articlesList}}"
+                :items="{{json_encode($articlesList)}}"
                 create="#criar"
                 details="/admin/artigos/"
                 edit="/admin/artigos/"
@@ -26,6 +26,9 @@
                 token="{{ csrf_token() }}"
                 modal="yes"
             ></list-table>
+        <div align="center">
+            {{$articlesList}}
+        </div>
         </panel>
 
         <modal name="modalAdd" title="Add product">

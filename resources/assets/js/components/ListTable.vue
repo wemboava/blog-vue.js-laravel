@@ -76,18 +76,19 @@
         },
         computed: {
             list () {
-                
+                const lista = this.items.data
+
                 this.ordem = this.ordem.toLowerCase()
                 this.ordemCol = parseInt(this.ordemCol)
 
                 if (this.ordem === "asc") {
-                    this.items.sort((a, b) => {      
+                    lista.sort((a, b) => {      
                         if (Object.values(a)[this.ordemCol] < Object.values(b)[this.ordemCol]) { return 1}
                         if (Object.values(a)[this.ordemCol] > Object.values(b)[this.ordemCol]) { return -1}
                         return 0
                     }) 
                 } else {
-                    this.items.sort((a, b) => {
+                    lista.sort((a, b) => {
                         console.log('a =>', a);
                         console.log('a Obj =>', Object.values(a));
                         if (Object.values(a)[this.ordemCol] > Object.values(b)[this.ordemCol]) { return 1}
@@ -96,7 +97,7 @@
                     })
                 }
 
-                return this.items.filter(res => {
+                return lista.filter(res => {
 
                     if (res['title'].toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
                         || res['description'].toLowerCase().indexOf(this.filter.toLowerCase()) >= 0) {

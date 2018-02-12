@@ -22,7 +22,7 @@ class ArtigosController extends Controller
             ['title'=>'list of articles', 'url'=>'']
         ]);
 
-        $articlesList =  json_encode(Article::select('id', 'title', 'description', 'date')->get());
+        $articlesList = Article::select('id', 'title', 'description', 'date')->paginate(2);
 
         //compact é uma funçao do laravel que disponibiliza o valor da variavel para a view
         return view('admin.artigos.index', compact('breadCrumpList', 'articlesList'));
