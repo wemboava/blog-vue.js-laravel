@@ -1,6 +1,6 @@
 <template>
-    <form :action="action" :class="css" :methods="defineMethod" :enctype="enctype">
-        <input v-if="alterMethod" type="hidden" name="_methods" :value="alterMethod">
+    <form :action="action" :class="css" :method="defineMethod" :enctype="enctype">
+        <input v-if="alterMethod" type="hidden" name="_method" :value="alterMethod">
         <input v-if="token" type="hidden" name="_token" :value="token">
         <slot></slot>
     </form>    

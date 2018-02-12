@@ -16,28 +16,38 @@
                 modal="yes"
             ></list-table>
         </panel>
+
         <modal name="modalAdd" title="Add product">
             <form-template
                 id="formAdd"
                 css=""
-                action=""
+                action="{{ route('artigos.store') }}"
                 method="post"
                 enctype=""
-                token=""
+                token="{{ csrf_token() }}"
             >
                 <div class="form-group">
                     <label for="title">Title:</label>
-                    <input type="text" class="form-control" id="title" placeholder="title">
+                    <input type="text" class="form-control" name="title" id="title" placeholder="title">
                 </div>
                 <div class="form-group">
                     <label for="description">Description:</label>
-                    <input type="text" class="form-control" id="description" placeholder="description">
+                    <input type="text" class="form-control" name="description" id="description" placeholder="description">
+                </div>
+                <div class="form-group">
+                    <label for="content">Content:</label>
+                    <textarea name="content" class="form-control" name="content" id="content"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="datetime-local" class="form-control" name="date" id="date">
                 </div>
             </form-template>
             <span slot="actions">
                 <button form="formAdd" class="btn btn-info">Confirm</button>
             </span>
         </modal>
+        
         <modal name="modalEdit" title="Edit product">
             <form-template
                 id="editForm"
@@ -49,20 +59,20 @@
             >
                 <div class="form-group">
                     <label for="title">Title:</label>
-                    <input type="text" class="form-control" id="title" v-model="$store.state.item.title" placeholder="title">
+                    <!-- <input type="text" class="form-control" id="title" v-model="$store.state.item.title" placeholder="title"> -->
                 </div>
                 <div class="form-group">
                     <label for="description">Description:</label>
-                    <input type="text" class="form-control" id="description" v-model="$store.state.item.description" placeholder="description">
+                    <!-- <input type="text" class="form-control" id="description" v-model="$store.state.item.description" placeholder="description"> -->
                 </div>
             </form-template>
-            <span slot="editForm">
+            <span slot="actions">
                 <button form="editForm"class="btn btn-info">Confirm</button>
             </span>
         </modal>
-        <modal name="modalDetails" :title="$store.state.item.title">
+        <!-- <modal name="modalDetails" :title="$store.state.item.title">
             <p>@{{$store.state.item.description}}</p>        
-        </modal>
+        </modal> -->
 
     </page>
 

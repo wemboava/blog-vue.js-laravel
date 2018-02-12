@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+// import model artigo
+use App\Article;
 
 class ArtigosController extends Controller
 {
@@ -20,10 +22,7 @@ class ArtigosController extends Controller
             ['title'=>'list of articles', 'url'=>'']
         ]);
 
-        $articlesList =  json_encode([
-            ['id'=>1, 'title'=>'PHP 5', 'description'=>'Curso legal de PHP 5'],
-            ['id'=>2, 'title'=>'Vue.js', 'description'=>'Curso completo de vue.js']
-        ]);
+        $articlesList =  json_encode(Article::select('id', 'title', 'description', 'date')->get());
 
         //compact é uma funçao do laravel que disponibiliza o valor da variavel para a view
         return view('admin.artigos.index', compact('breadCrumpList', 'articlesList'));
@@ -47,7 +46,18 @@ class ArtigosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $data = $request->all();
+        Article::create($data);
+
+        //redireciona para a pagina da requisicao
+        return redirect()->back();
+
+        //caso eu não tivesse o arquivo fillable, teria que fazer da seguinte forma
+        // $artigo = new Artigo;
+        // $artigo->titulo = $data['title']
+        // ...
+        //$artigo->save()
     }
 
     /**

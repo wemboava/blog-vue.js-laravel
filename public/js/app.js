@@ -45407,14 +45407,14 @@ var render = function() {
       class: _vm.css,
       attrs: {
         action: _vm.action,
-        methods: _vm.defineMethod,
+        method: _vm.defineMethod,
         enctype: _vm.enctype
       }
     },
     [
       _vm.alterMethod
         ? _c("input", {
-            attrs: { type: "hidden", name: "_methods" },
+            attrs: { type: "hidden", name: "_method" },
             domProps: { value: _vm.alterMethod }
           })
         : _vm._e(),
