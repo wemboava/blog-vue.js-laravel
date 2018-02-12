@@ -44171,6 +44171,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['titles', 'items', 'create', 'details', 'edit', 'deletes', 'token', 'modal'],
@@ -44376,7 +44381,7 @@ var render = function() {
                       {
                         attrs: {
                           id: index,
-                          action: _vm.deletes,
+                          action: _vm.deletes + item.id,
                           method: "POST"
                         }
                       },
@@ -44407,7 +44412,8 @@ var render = function() {
                                 item: item,
                                 "name-modal": "modalDetails",
                                 title: "Details",
-                                css: ""
+                                css: "",
+                                url: _vm.details
                               }
                             })
                           : _vm._e(),
@@ -44425,25 +44431,25 @@ var render = function() {
                                 item: item,
                                 "name-modal": "modalEdit",
                                 title: "edit",
-                                css: ""
+                                css: "",
+                                url: _vm.edit
                               }
                             })
                           : _vm._e(),
                         _vm._v(" "),
                         _vm.deletes
-                          ? _c("a", { attrs: { href: _vm.deletes } }, [
-                              _vm._v("Delete")
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c("a", {
-                          attrs: { href: "" },
-                          on: {
-                            click: function($event) {
-                              _vm.initForm(index)
-                            }
-                          }
-                        })
+                          ? _c(
+                              "a",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.initForm(index)
+                                  }
+                                }
+                              },
+                              [_vm._v("oi Delete")]
+                            )
+                          : _vm._e()
                       ],
                       1
                     )
@@ -44466,7 +44472,8 @@ var render = function() {
                                 item: item,
                                 "name-modal": "modalDetails",
                                 title: "Details",
-                                css: ""
+                                css: "",
+                                url: _vm.details
                               }
                             })
                           : _vm._e(),
@@ -44484,7 +44491,8 @@ var render = function() {
                                 item: item,
                                 "name-modal": "modalEdit",
                                 title: "edit",
-                                css: ""
+                                css: "",
+                                url: _vm.edit
                               }
                             })
                           : _vm._e(),
@@ -44516,7 +44524,8 @@ var render = function() {
                                 item: item,
                                 "name-modal": "modalDetails",
                                 title: "Details",
-                                css: ""
+                                css: "",
+                                url: _vm.details
                               }
                             })
                           : _vm._e(),
@@ -44534,7 +44543,8 @@ var render = function() {
                                 item: item,
                                 "name-modal": "modalEdit",
                                 title: "edit",
-                                css: ""
+                                css: "",
+                                url: _vm.edit
                               }
                             })
                           : _vm._e()
@@ -44942,11 +44952,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['type', 'nameModal', 'title', 'css', 'item'],
+    props: ['type', 'nameModal', 'title', 'css', 'item', 'url'],
 
     methods: {
         fillForm: function fillForm() {
-            this.$store.commit('setItem', this.item);
+            var _this = this;
+
+            axios.get(this.url + this.item.id).then(function (res) {
+                _this.$store.commit('setItem', res.data);
+            });
         }
     }
 });

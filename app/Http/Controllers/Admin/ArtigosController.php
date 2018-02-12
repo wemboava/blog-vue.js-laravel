@@ -48,7 +48,6 @@ class ArtigosController extends Controller
     {
         $data = $request->all();
 
-
         $validation = \Validator::make($data, [
             'title' => 'required',
             'description' => 'required',
@@ -82,7 +81,7 @@ class ArtigosController extends Controller
      */
     public function show($id)
     {
-        //
+        return Article::find($id);
     }
 
     /**
@@ -105,7 +104,25 @@ class ArtigosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+
+        $validation = \Validator::make($data, [
+            'title' => 'required',
+            'description' => 'required',
+            'content' => 'required',
+            'date' => 'required'
+        ]);
+
+        if ($validation->fails()) {
+            return redirect()->back()->withErrors($validation)->withInput();
+        };
+
+        // dd($request->all());
+        Article::find($id)->update($data);
+
+        //redireciona para a pagina da requisicao
+        return redirect()->back();
+
     }
 
     /**
@@ -116,6 +133,7 @@ class ArtigosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Article::find($id)->delete();
+        return redirect()->back();
     }
 }

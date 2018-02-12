@@ -21,31 +21,36 @@
                 <tr v-for="(item, index) in list" :key="index">
                     <td  v-for="(i, index) in item" :key="index">{{i}}</td>
                     
-                    <form :id="index" v-if="deletes && token" :action="deletes" method="POST">
+                    <form :id="index" v-if="deletes && token" :action="deletes + item.id" method="POST">
+                        
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="_token" :value="token">
                         
                         <a v-if="details && !modal" :href="details">Details |</a>
-                        <modal-link v-if="details && modal" type="link" :item="item" name-modal="modalDetails" title="Details" css=""></modal-link>
+                        <modal-link v-if="details && modal" type="link" :item="item" name-modal="modalDetails" title="Details" css="" :url="details"></modal-link>
+                        
                         <a v-if="edit && !modal" :href="edit">Edit |</a>
-                        <modal-link v-if="edit && modal" type="link" :item="item" name-modal="modalEdit" title="edit" css=""></modal-link>
-                        <a v-if="deletes" :href="deletes">Delete</a>
-                        <a href="" @click="initForm(index)"></a>
+                        <modal-link v-if="edit && modal" type="link" :item="item" name-modal="modalEdit" title="edit" css="" :url="edit"></modal-link>
+                        
+                        <a v-if="deletes" @click="initForm(index)">oi Delete</a>
                     </form>
 
                     <span v-if="!token">
                         <a v-if="details && !modal" :href="details">Details |</a>
-                        <modal-link v-if="details && modal" type="link" :item="item" name-modal="modalDetails" title="Details" css=""></modal-link>
+                        <modal-link v-if="details && modal" type="link" :item="item" name-modal="modalDetails" title="Details" css="" :url="details"></modal-link>
+                        
                         <a v-if="edit && !modal" :href="edit">Edit |</a>
-                        <modal-link v-if="edit && modal" type="link" :item="item" name-modal="modalEdit" title="edit" css=""></modal-link>
+                        <modal-link v-if="edit && modal" type="link" :item="item" name-modal="modalEdit" title="edit" css="" :url="edit"></modal-link>
+                        
                         <a v-if="deletes" :href="deletes">Delete</a>
                     </span>
 
                     <span v-if="token && !deletes">
                         <a v-if="details && !modal" :href="details">Details |</a>
-                        <modal-link v-if="details && modal" type="link" :item="item" name-modal="modalDetails" title="Details" css=""></modal-link>
+                        <modal-link v-if="details && modal" type="link" :item="item" name-modal="modalDetails" title="Details" css="" :url="details"></modal-link>
+                        
                         <a v-if="edit && !modal" :href="edit">Edit |</a>
-                        <modal-link v-if="edit && modal" type="link" :item="item" name-modal="modalEdit" title="edit" css=""></modal-link>
+                        <modal-link v-if="edit && modal" type="link" :item="item" name-modal="modalEdit" title="edit" css="" :url="edit"></modal-link>
                     </span>
                 </tr>
                 
@@ -104,7 +109,7 @@
         },
         methods: {
             initForm (index) {
-                document.getElementById(index).submit()
+                document.getElementById(index).submit();
             },
             toggleOrdem (index) {
                 this.ordem = this.ordem === 'desc'

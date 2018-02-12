@@ -15,11 +15,14 @@
 
 <script>
     export default {
-        props: ['type', 'nameModal', 'title', 'css', 'item'],
+        props: ['type', 'nameModal', 'title', 'css', 'item', 'url'],
         
         methods: {
             fillForm () {
-                this.$store.commit('setItem', this.item)
+                axios.get(this.url + this.item.id).then(res => {
+                    this.$store.commit('setItem', res.data)
+                })
+                
             }
         }
     }
