@@ -44223,9 +44223,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             return lista.filter(function (res) {
-
-                if (res['title'].toLowerCase().indexOf(_this.filter.toLowerCase()) >= 0 || res['description'].toLowerCase().indexOf(_this.filter.toLowerCase()) >= 0) {
-                    return true;
+                res = Object.values(res);
+                for (var i = 0; i < res.length; i++) {
+                    if ((res[i] + "").toLowerCase().indexOf(_this.filter.toLowerCase()) >= 0) {
+                        return true;
+                    }
                 }
                 return false;
             });
@@ -44449,7 +44451,7 @@ var render = function() {
                                   }
                                 }
                               },
-                              [_vm._v("oi Delete")]
+                              [_vm._v("Delete")]
                             )
                           : _vm._e()
                       ],

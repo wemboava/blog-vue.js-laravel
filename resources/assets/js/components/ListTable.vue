@@ -32,7 +32,7 @@
                         <a v-if="edit && !modal" :href="edit">Edit |</a>
                         <modal-link v-if="edit && modal" type="link" :item="item" name-modal="modalEdit" title="edit" css="" :url="edit"></modal-link>
                         
-                        <a v-if="deletes" @click="initForm(index)">oi Delete</a>
+                        <a v-if="deletes" @click="initForm(index)">Delete</a>
                     </form>
 
                     <span v-if="!token">
@@ -98,14 +98,14 @@
                 }
 
                 return lista.filter(res => {
-
-                    if (res['title'].toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
-                        || res['description'].toLowerCase().indexOf(this.filter.toLowerCase()) >= 0) {
-                        return true
+                    res = Object.values(res)
+                    for (let i = 0; i < res.length; i++) {
+                        if ((res[i]+"").toLowerCase().indexOf(this.filter.toLowerCase()) >= 0) {
+                            return true
+                        }
                     }
                     return false
                 })  
-
             }
         },
         methods: {
